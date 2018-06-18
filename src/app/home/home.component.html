@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+          <h1 class="text-center m-5">World Regions</h1>
+    </div>
+
+  </div>
+  <div class="row">
+    <div *ngFor="let region_name of regionList | filter: search" class="col-md-4 col-sm-6">
+      <br><br>
+      <div class="card border-0">
+        <img class="card-img-top img-fluid" src="assets/{{region_name}}.png" alt="">
+        <div class="card-body">
+          <h5 class="card-title">{{region_name}}</h5>
+
+          <div class="card-text">
+            <div [ngSwitch]='region_name'>
+
+              <div *ngSwitchCase="'Africa'">
+                <p>Africa is the world's second largest and second most-populous continent including adjacent islands.</p>
+              </div>
+              <div *ngSwitchCase="'Americas'">
+                <p>The Americas (also collectively called America) comprise the totality of the continents of North and South America.</p>
+              </div>
+              <div *ngSwitchCase="'Asia'">
+                <p>Asia is Earth's largest and most populous continent, located primarily in the Eastern and Northern Hemispheres.</p>
+              </div>
+              <div *ngSwitchCase="'Europe'">
+                <p>Europe is a continent located entirely in the Northern Hemisphere and mostly in the Eastern Hemisphere.</p>
+              </div>
+              <div *ngSwitchCase="'Oceania'">
+                <p>Oceania is a geographic region comprising Melanesia, Micronesia, Polynesia and Australasia.</p>
+              </div>
+
+            </div>
+            <!-- ngSwitch ends -->
+            
+          </div>
+          <a [routerLink]="['/all-countries-view', region_name]" class="btn btn-success">Go to {{region_name}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

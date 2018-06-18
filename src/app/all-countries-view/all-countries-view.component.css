@@ -1,0 +1,10 @@
+.card-img-top{
+    height: 200px;
+}
+.btn{
+    width: 100%;
+}
+.row :hover {
+  transition: transform .2s;
+  transform: scale(1.02);
+}

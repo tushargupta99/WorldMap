@@ -1,0 +1,89 @@
+<div class="container">
+
+  <div class="row" *ngIf='!languageFilter || !currencyFilter; else header'>
+
+    <div class="col-8 text-center my-4 pt-2 text-success">
+
+      <div [ngSwitch]='currentRegion'>
+        <div *ngSwitchCase="'Americas'">
+          <h1>American Territory</h1>
+        </div>
+        <div *ngSwitchCase="'Europe'">
+          <h1>European Territory</h1>
+        </div>
+        <div *ngSwitchDefault>
+          <h1>{{currentRegion}}n Territory</h1>
+        </div>
+      </div>
+
+    </div>
+    <div class='col-4 text-right my-5'>
+      <button class='btn btn-success' (click)=goBackToPreviousLocation()>Go Back</button>
+    </div>
+  </div>
+
+
+  <ng-template #header>
+    <div class="row ">
+      <div class="col-10 p-2 h1 text-center text-success">
+        Filtered Section
+      </div>
+      <div class='col text-right my-5'>
+        <button class='btn btn-success' (click)=goBackToPreviousLocation()>Go Back</button>
+      </div>
+    </div>
+  </ng-template>
+
+
+  <div class="row">
+    <div class="col-md-4 my-3" *ngFor='let country of countriesOfCurrentRegion  | filter: search'>
+      <div class="card-deck">
+        <div class="card border-success" style="width: 100%;">
+          <img class="card-img-top" src="{{country.flag}}" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{country.name}}</h5>
+
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Capital : {{country.capital}}
+              </li>
+
+
+              <li class="list-group-item">Population : {{country.population}}
+              </li>
+
+              <li class="list-group-item" *ngIf='country.timezones.length>0 && country.timezones.length != undefined'>
+                Timezone :
+                <span *ngFor='let time of country.timezones; let last=last'>{{time}}{{last ? '.' : ', '}}</span>
+              </li>
+
+              <li class="list-group-item" *ngIf='country.currencies.length>0 && country.currencies.length != undefined'>
+                Currency :
+                <span *ngFor='let currency of country.currencies'>
+                  <a [routerLink]="['/all-countries-view',country.name]" data-toggle="tooltip" title="Click to see Usage" [queryParams]="{ 'currency_code' : currency.code , 'currency_name': currency.name}">{{currency.name}}</a>
+
+                </span>
+              </li>
+
+              <li class="list-group-item" *ngIf='country.languages.length>0 && country.languages.length != undefined'>
+                Languages :
+                <span *ngFor='let lang of country.languages; let last = last'>
+                  <a [routerLink]="['/all-countries-view', lang.name]" data-toggle="tooltip" title="Click to see Usage" [queryParams]="{ 'language_code' : lang.iso639_1 , 'language_name': lang.name}">{{lang.name}}{{last ? '.' : ', '}}</a>
+                </span>
+              </li>
+
+              <li class="list-group-item">SubRegion : {{country.subregion}}
+              </li>
+
+              <li class="list-group-item text-center">
+                <a [routerLink]="['/single-country-view', country.name]" class="btn btn-success">Go to {{country.name}}</a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <div class="col-sm-1"></div>
+  </div>
+</div>

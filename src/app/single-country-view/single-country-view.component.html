@@ -1,0 +1,58 @@
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col text-center h1 my-5 text-success">Welcome to {{currentCountry}}</div>
+  </div>
+
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+
+      <div class="card text-center border-0" *ngFor='let country of currentCountryData'>
+        <img class="card-img-top" src='{{country.flag}}' alt="Card image cap">
+        <br>
+        <div class="card-body">
+          <h5 class="card-title h3 text-uppercase">{{country.name}}</h5>
+        </div>
+
+        <ul class="list-group text-muted list-group-flush">
+
+          <li class="list-group-item">Native Name : {{country.nativeName}}</li>
+          <li class="list-group-item">Capital : {{country.capital}}</li>
+          <li class="list-group-item">Region : {{country.region}}</li>
+          <li class="list-group-item">SubRegion : {{country.subregion}}</li>
+          <li class="list-group-item">Population : {{country.population}}</li>
+          <li class="list-group-item">Area : {{country.area}}</li>
+
+          <li class="list-group-item">Languages :
+            <span *ngFor='let lang of country.languages; let last=last'>
+              <a [routerLink]='["/all-countries-view", lang.name]' data-toggle="tooltip" title="Click to see Usage" [queryParams]="{ 'language_code' : lang.iso639_1}">{{lang.name}}{{last ? '.' : ', '}}</a>
+            </span>
+          </li>
+
+          <li class="list-group-item" *ngFor='let currency of country.currencies'>Currency : 
+            <a [routerLink]='["/all-countries-view", currency.name]' data-toggle="tooltip" title="Click to see Usage" [queryParams]="{ 'currency_code' : currency.code}">{{currency.name}}</a>
+          </li>
+
+          <li class="list-group-item">Timezones :
+            <span *ngFor='let time of country.timezones; let last = last'>{{country.timezones}}{{last ? '.' : ', '}}</span>
+          </li>
+
+          <div *ngIf='country.borders != ""'>
+            <li class="list-group-item">Borders :
+              <span *ngFor='let border of country.borders; let last = last'>{{border}}{{last ? '.' : ', '}}</span>
+            </li>
+          </div>
+
+        </ul>
+        <div class="card-body text-center">
+          <button class='btn btn-success text-center' (click)=goBackToPreviousLocation()>Go Back</button>  
+        </div>
+        <br>
+        <br>
+      </div>
+
+    </div>
+    <div class="col-2"></div>
+  </div>
+</div>
